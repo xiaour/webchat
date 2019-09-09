@@ -4,10 +4,12 @@ import com.suiyueyule.webchat.listener.SocketHandler;
 import com.suiyueyule.webchat.listener.SocketHandshake;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
  * @Author: zhangtao@suiyueyule.com
@@ -43,8 +45,12 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         //部分 支持websocket 的访问链接,允许跨域
         registry.addHandler(handler, "/echo").addInterceptors(handshake).setAllowedOrigins("*");
+        //部分 支持websocket 的访问链接,允许跨域
+        registry.addHandler(handler, "/webchat/echo").addInterceptors(handshake).setAllowedOrigins("*");
         //部分 不支持websocket的访问链接,允许跨域
-        registry.addHandler(handler, "/sockjs/echo").addInterceptors(handshake).setAllowedOrigins("*").withSockJS();
+        //registry.addHandler(handler, "/sockjs/echo").addInterceptors(handshake).setAllowedOrigins("*").withSockJS();
     }
+
+
 
 }

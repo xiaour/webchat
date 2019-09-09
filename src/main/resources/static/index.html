@@ -58,8 +58,17 @@
         var websocket;
         if ('WebSocket' in window) {
             console.log("正在连接服务器："+window.location.host);
+            var wsUrl;
+            var url = window.location.host+window.location.pathname;
+            var ishttps = 'https:' == document.location.protocol ? true : false;
+            if (ishttps) {
+                wsUrl = 'wss://'+ url+"/echo";
+            } else {
+                wsUrl = 'ws://'+ url+"/echo";
+            }
+            wsUrl ="wss://wenbei.online/webchat/echo"
             //因为没有加目录名称，这里直接使用浏览器地址连接服务器，如果有修改，此处应该修改为对应地址。
-            websocket = new WebSocket("ws://"+window.location.host+"/echo");
+            websocket = new WebSocket(wsUrl);
         }
         websocket.onopen = function (evnt) {
             console.log("链接服务器成功!", evnt.data);

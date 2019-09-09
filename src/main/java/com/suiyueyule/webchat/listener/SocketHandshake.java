@@ -1,6 +1,5 @@
 package com.suiyueyule.webchat.listener;
 
-import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -10,9 +9,6 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
-import java.time.Duration;
-import java.util.Enumeration;
 import java.util.Map;
 
 /**

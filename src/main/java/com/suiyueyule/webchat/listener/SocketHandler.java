@@ -34,7 +34,7 @@ public class SocketHandler implements WebSocketHandler {
             obj.put("count", SESSIONS.size()-1);
             obj.put("currentUserId",session.getId());
             obj.put("currentUserName",userName);
-            users(obj,userName);
+            users(obj,session.getId());
             session.sendMessage(new TextMessage(obj.toJSONString()));
         }
     }
@@ -123,12 +123,12 @@ public class SocketHandler implements WebSocketHandler {
      *
      * @param obj
      */
-    private void users(JSONObject obj,String currentUserName) {
-        List<String> userNames = new ArrayList<>();
+    private void users(JSONObject obj,String sessionId) {
+        Set<String> userNames = new HashSet<>();
         for (WebSocketSession webSocketSession : SESSIONS) {
-            String newUser = (String) webSocketSession.getAttributes().get("ws_user");
-            if(!currentUserName.equals(newUser)){
-                userNames.add(newUser);
+
+            if(!webSocketSession.getId().equals(sessionId)){
+                userNames.add(webSocketSession.getAttributes().get("ws_user").toString());
             }
         }
         obj.put("userList", userNames);
