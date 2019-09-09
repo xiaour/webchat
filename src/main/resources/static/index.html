@@ -34,7 +34,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control">
                 <div class="input-group-append">
-                    <span class="input-group-text" id="btn_send_msg">发送给单人</span>
+                    <span class="input-group-text" id="btn_send_msg">发送给谁？</span>
                 </div>
             </div>
 
@@ -57,8 +57,9 @@
     $(function () {
         var websocket;
         if ('WebSocket' in window) {
-            console.log("WebSocket");
-            websocket = new WebSocket("ws://10.2.0.11:8080/echo");
+            console.log("正在连接服务器："+window.location.host);
+            //因为没有加目录名称，这里直接使用浏览器地址连接服务器，如果有修改，此处应该修改为对应地址。
+            websocket = new WebSocket("ws://"+window.location.host+"/echo");
         }
         websocket.onopen = function (evnt) {
             console.log("链接服务器成功!", evnt.data);
@@ -79,7 +80,6 @@
                 }
 
             } else {
-                //toast(json.msg, 'info')
                 $('#chat-box').append(message.fromUserName+"："+message.msg+"\n");
                 textAreaScroll();
             }
@@ -96,7 +96,7 @@
                 //得到选择的用户
                 console.log('选中的用户', currentSelectUser);
                 if (!currentSelectUser) {
-                    alert("要给谁发消息啊？");
+                    alert("从左边对话列表选个人吧？");
                 } else {
                     var object = {
                         to: currentSelectUser,
@@ -117,8 +117,10 @@
 
     });
 
+    //选择用户
     var selectUser = function(data) {
         currentSelectUser = data.dataset["name"];
+        $("#btn_send_msg").html("发送给["+currentSelectUser+"]");
     }
 
 
