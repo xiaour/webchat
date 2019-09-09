@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>测试websocket</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.css">
+    <style>
+        .textarea-inherit {
+            width: 100%;
+            overflow: auto;
+            word-break: break-all; //解决兼容问题
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid" style="padding-top: 20px">
+    <div class="row ">
+        <div class="col-sm-6 col-md-3 col-lg-4 col-xl-3">
+            <div class="list-group" id="inputGroupSelect01">
+                <a href="#" class="list-group-item list-group-item-primary">对话列表</a>
+
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-8 col-xl-9">
+
+            <textarea disabled class="form-control" id="chat-box" class="textarea-inherit" rows="10"></textarea>
+
+            <br>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="btn_send_msg">发送给单人</span>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+<script language=javascript>
+    var currentLoginUser ="";//当前登录用户
+    var currentSelectUser = "";
+
+    var textAreaScroll = function() {
+        var obj = document.getElementById("chat-box");
+        obj.scrollTop = obj.scrollHeight; // good
+    }
+
+
+    $(function () {
+        var websocket;
+        if ('WebSocket' in window) {
+            console.log("WebSocket");
+            websocket = new WebSocket("ws://10.2.0.11:8080/echo");
+        }
+        websocket.onopen = function (evnt) {
+            console.log("链接服务器成功!", evnt.data);
+        };
+        websocket.onmessage = function (evnt) {
+            console.log('收到消息:', evnt.data);
+            var message = JSON.parse(evnt.data);
+            if (message.hasOwnProperty('userList')) {
+                currentLoginUser = message;
+                var users = currentLoginUser.userList;
+                for (var i = 0; i < users.length; i++) {
+                    if(users[i] != currentLoginUser.currentUserName){
+                        $("#inputGroupSelect01").append(
+                            '<div onclick="selectUser(this)" id='+ users[i] + ' data-name='+ users[i] + '  class="list-group-item list-group-item-action">' +
+                            '<img  style="width: 32px;height: 32px;border-radius: 50px 50px;" src="https://static.suiyueyule.com/user_icon.png" alt="头像"/>'
+                            + users[i] + '</div>');
+                    }
+                }
+
+            } else {
+                //toast(json.msg, 'info')
+                $('#chat-box').append(message.fromUserName+"："+message.msg+"\n");
+                textAreaScroll();
+            }
+        };
+        websocket.onerror = function (evnt) {
+        };
+        websocket.onclose = function (evnt) {
+            console.log("与服务器断开了链接!")
+        }
+        $('#btn_send_msg').bind('click', function () {
+            if (websocket != null) {
+                //根据勾选的人数确定是群聊还是单聊
+                var value = $(this).parent().parent().find('input').val();
+                //得到选择的用户
+                console.log('选中的用户', currentSelectUser);
+                if (!currentSelectUser) {
+                    alert("要给谁发消息啊？");
+                } else {
+                    var object = {
+                        to: currentSelectUser,
+                        msg: value,
+                        type: 2,
+                        fromSessionId:currentLoginUser.currentUserId,
+                        fromUserName:currentLoginUser.currentUserName
+                    };
+                    //将object转成json字符串发送给服务端
+                    var json = JSON.stringify(object);
+                    websocket.send(json);
+                    $('#chat-box').append("我"+"："+value+"\n");
+                }
+            } else {
+                console.log('未与服务器链接.');
+            }
+        });
+
+    });
+
+    var selectUser = function(data) {
+        currentSelectUser = data.dataset["name"];
+    }
+
+
+</script>
+</body>
+</html>
