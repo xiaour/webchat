@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>测试websocket</title>
+    <title>妙传Web</title>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
@@ -66,7 +66,7 @@
             } else {
                 wsUrl = 'ws://'+ url+"/echo";
             }
-            wsUrl ="wss://wenbei.online/webchat/echo"
+            //wsUrl ="wss://wenbei.online/webchat/echo"
             //因为没有加目录名称，这里直接使用浏览器地址连接服务器，如果有修改，此处应该修改为对应地址。
             websocket = new WebSocket(wsUrl);
         }

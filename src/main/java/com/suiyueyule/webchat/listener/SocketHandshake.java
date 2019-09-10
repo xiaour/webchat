@@ -1,5 +1,6 @@
 package com.suiyueyule.webchat.listener;
 
+import com.suiyueyule.webchat.util.JsonUtil;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -9,6 +10,7 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetSocketAddress;
 import java.util.Map;
 
 /**
@@ -32,7 +34,6 @@ public class SocketHandshake implements HandshakeInterceptor {
             map.put("ws_user",userAgent.getOperatingSystem().getName().replaceAll(" ","")+"_"+userAgent.getId());
         }
         return true;
-
     }
 
     @Override
