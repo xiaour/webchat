@@ -12,7 +12,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
- * @Author: zhangtao@suiyueyule.com
+ * @Author: cityuu#163.com
  * @Date: 2019-08-29 13:52
  * @version: v1.0
  * @Description:

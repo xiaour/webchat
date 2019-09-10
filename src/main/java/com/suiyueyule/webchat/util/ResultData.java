@@ -1,7 +1,7 @@
 package com.suiyueyule.webchat.util;
 
 /**
- * @Author: zhangtao@suiyueyule.com
+ * @Author: cityuu#163.com
  * @Date: 2019-08-29 11:43
  * @version: v1.0
  * @Description:

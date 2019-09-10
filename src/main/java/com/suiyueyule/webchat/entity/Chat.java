@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
- * @Author: zhangtao@suiyueyule.com
+ * @Author: cityuu#163.com
  * @Date: 2019-08-29 11:59
  * @version: v1.0
  * @Description: 消息结构

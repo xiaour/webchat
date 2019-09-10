@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 
 /**
- * @Author: zhangtao@suiyueyule.com
+ * @Author: cityuu#163.com
  * @Date: 2018-12-10 16:11
  * @version: v1.0
  * @Description: JSON 格式化工具

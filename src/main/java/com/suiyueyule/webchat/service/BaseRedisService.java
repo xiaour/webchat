@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author: zhangtao@suiyueyule.com
+ * @Author: cityuu#163.com
  * @Date: 2018-12-10 15:36
  * @version: v1.0
  * @Description: Redis 缓存操作接口

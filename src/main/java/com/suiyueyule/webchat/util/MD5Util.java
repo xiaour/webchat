@@ -3,7 +3,7 @@ package com.suiyueyule.webchat.util;
 import org.springframework.util.DigestUtils;
 
 /**
- * @Author: zhangtao@suiyueyule.com
+ * @Author: cityuu#163.com
  * @Date: 2019-08-29 11:40
  * @version: v1.0
  * @Description:
