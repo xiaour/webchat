@@ -27,9 +27,11 @@ public class SocketHandshake implements HandshakeInterceptor {
         if (serverHttpRequest instanceof ServletServerHttpRequest) {
             HttpServletRequest servletRequest = ((ServletServerHttpRequest) serverHttpRequest).getServletRequest();
             // 从session中获取到当前登录的用户信息. 作为socket的账号信息. session的的WEBSOCKET_USERNAME信息,在用户打开页面的时候设置.
-            String agent = servletRequest.getHeader("User-Agent");
-            UserAgent userAgent = UserAgent.parseUserAgentString(agent);
-            map.put("ws_user",userAgent.getOperatingSystem().getName().replaceAll(" ","")+"_"+userAgent.getId());
+            String device = servletRequest.getParameter("agent");
+            UserAgent userAgent = UserAgent.parseUserAgentString(servletRequest.getHeader("User-Agent"));
+            String device_sub = userAgent.getOperatingSystem().getName().replaceAll(" ","");
+            //String deviceName = userAgent.getBrowser().getName()
+            map.put("ws_user",(device!=null?device:device_sub)+"_"+userAgent.getId());
         }
         return true;
     }
