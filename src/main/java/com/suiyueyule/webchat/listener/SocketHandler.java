@@ -23,11 +23,18 @@ public class SocketHandler implements WebSocketHandler {
      */
     private final static Set<WebSocketSession> SESSIONS = new HashSet();
 
+    private final static Set<String> msgIdFilter = new LinkedHashSet<>();//
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("链接成功......");
-        SESSIONS.add(session);
+
         String userName = (String) session.getAttributes().get("ws_user");
+
+        this.sessionFilter(userName);
+
+        SESSIONS.add(session);
+
         if (userName != null) {
             JSONObject obj = new JSONObject();
             // 统计一下当前登录系统的用户有多少个
@@ -37,6 +44,28 @@ public class SocketHandler implements WebSocketHandler {
             users(obj,session.getId());
             session.sendMessage(new TextMessage(obj.toJSONString()));
         }
+    }
+    //过滤掉以前相同设备但是没有断开的缓存
+    private void sessionFilter(String currentUserName) {
+        for(WebSocketSession history:SESSIONS){
+            String userName = (String) history.getAttributes().get("ws_user");
+            if(userName.equals(currentUserName)){
+                SESSIONS.remove(history);
+            }
+        }
+    }
+
+    private boolean msgIdFilter(String msgId){
+        if(msgIdFilter.contains(msgId)){
+            log.info("此消息被拒绝！");
+            return false;
+        }
+        //给个人
+        msgIdFilter.add(msgId);
+        if(msgIdFilter.size()>=200){
+            msgIdFilter.clear();
+        }
+        return true;
     }
 
     @Override
@@ -49,9 +78,14 @@ public class SocketHandler implements WebSocketHandler {
             obj.put("msg", msg.getString("msg"));
             sendMessageToUsers(new TextMessage(obj.toJSONString()));
         } else {
-            //给个人
+            if(!this.msgIdFilter(msg.getString("msgId"))){
+                log.error("重复消息，不与发送！");
+                return;
+            }
+
             String to = msg.getString("to");
             obj.put("msg", msg.getString("msg"));
+            obj.put("msgId", msg.getString("msgId"));
             obj.put("fromSessionId", msg.getString("fromSessionId"));
             obj.put("fromUserName", msg.getString("fromUserName"));
             obj.put("to",to);
@@ -113,7 +147,7 @@ public class SocketHandler implements WebSocketHandler {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                break;
+               return;
             }
         }
     }
