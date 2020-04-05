@@ -1,4 +1,4 @@
-package com.suiyueyule.webchat.entity;
+package online.wenbei.webchat.entity;
 
 import lombok.Data;
 import lombok.ToString;

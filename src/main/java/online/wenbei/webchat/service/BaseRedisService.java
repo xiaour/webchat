@@ -1,6 +1,6 @@
-package com.suiyueyule.webchat.service;
+package online.wenbei.webchat.service;
 
-import com.suiyueyule.webchat.util.JsonUtil;
+import online.wenbei.webchat.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

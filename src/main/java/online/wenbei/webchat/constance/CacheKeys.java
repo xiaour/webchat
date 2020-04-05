@@ -1,4 +1,4 @@
-package com.suiyueyule.webchat.constance;
+package online.wenbei.webchat.constance;
 
 /**
  * @Author: cityuu#163.com

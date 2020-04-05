@@ -1,7 +1,7 @@
-package com.suiyueyule.webchat.configuration;
+package online.wenbei.webchat.configuration;
 
-import com.suiyueyule.webchat.listener.SocketHandler;
-import com.suiyueyule.webchat.listener.SocketHandshake;
+import online.wenbei.webchat.listener.SocketHandler;
+import online.wenbei.webchat.listener.SocketHandshake;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

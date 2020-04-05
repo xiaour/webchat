@@ -1,4 +1,4 @@
-package com.suiyueyule.webchat;
+package online.wenbei.webchat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

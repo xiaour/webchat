@@ -1,4 +1,4 @@
-package com.suiyueyule.webchat.controller;
+package online.wenbei.webchat.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

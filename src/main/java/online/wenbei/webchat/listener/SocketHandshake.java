@@ -1,6 +1,6 @@
-package com.suiyueyule.webchat.listener;
+package online.wenbei.webchat.listener;
 
-import com.suiyueyule.webchat.util.JsonUtil;
+import online.wenbei.webchat.util.JsonUtil;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;

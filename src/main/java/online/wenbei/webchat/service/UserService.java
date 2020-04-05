@@ -1,8 +1,8 @@
-package com.suiyueyule.webchat.service;
+package online.wenbei.webchat.service;
 
-import com.suiyueyule.webchat.constance.CacheKeys;
-import com.suiyueyule.webchat.util.MD5Util;
-import com.suiyueyule.webchat.util.ResultData;
+import online.wenbei.webchat.constance.CacheKeys;
+import online.wenbei.webchat.util.MD5Util;
+import online.wenbei.webchat.util.ResultData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

@@ -1,4 +1,4 @@
-package com.suiyueyule.webchat.enums;
+package online.wenbei.webchat.enums;
 
 /**
  * @Author: cityuu#163.com
